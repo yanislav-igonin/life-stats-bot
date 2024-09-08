@@ -1,9 +1,11 @@
-import { databaseConfig } from '../config';
+import { databaseConfig, isProduction } from 'config';
 import { DataSource } from 'typeorm';
 
+const databasePath = isProduction() ? 'dist/database' : 'src/database';
+
 export default new DataSource({
-  entities: ['./database/models/*.model.ts'],
-  migrations: ['./database/migrations/*.ts'],
+  entities: [`${databasePath}/models/*.model.*`],
+  migrations: [`${databasePath}/migrations/*.*`],
   synchronize: true,
   type: 'postgres',
   ...databaseConfig,
