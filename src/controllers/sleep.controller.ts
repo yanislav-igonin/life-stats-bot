@@ -2,6 +2,7 @@ import { type Conversation } from '@grammyjs/conversations';
 import { type BotContext } from 'context';
 import { SleepModel, SleepType } from 'database/models';
 import { sleepKeyboard, startKeyboard } from 'keyboards';
+import { replies } from 'replies';
 
 export async function sleepController(
   conversation: Conversation<BotContext>,
@@ -26,7 +27,7 @@ export async function sleepController(
   sleep.type = type;
   await sleep.save();
 
-  await context.reply('Запись создана', {
+  await context.reply(replies.recordCreated, {
     reply_markup: startKeyboard,
     reply_to_message_id: response.message.message_id,
   });
