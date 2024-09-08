@@ -1,4 +1,3 @@
-import { appConfig } from 'config/app.config';
 import { type BotContext } from 'context';
 import { UserModel } from 'database/models';
 import { type NextFunction } from 'grammy';
