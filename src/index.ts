@@ -1,10 +1,12 @@
 // eslint-disable-next-line import/no-unassigned-import
 import 'reflect-metadata';
+import { conversations, createConversation } from '@grammyjs/conversations';
 import { appConfig } from 'config/app.config';
 import { type BotContext } from 'context';
 import { sleepController } from 'controllers/sleep.controller';
 import database from 'database';
-import { Bot, Keyboard } from 'grammy';
+import { Bot, session } from 'grammy';
+import { startKeyboard } from 'keyboards';
 import { logger } from 'logger';
 import {
   allowedUserMiddleware,
@@ -18,9 +20,9 @@ bot.catch(logger.error);
 bot.use(stateMiddleware);
 bot.use(userMiddleware);
 bot.use(allowedUserMiddleware);
-
-const startKeyboard = new Keyboard();
-startKeyboard.add('Сон', 'Помощь');
+bot.use(session({ initial: () => ({}) }));
+bot.use(conversations());
+bot.use(createConversation(sleepController));
 
 bot.command('start', async (context) => {
   await context.reply(replies.start, { reply_markup: startKeyboard });
@@ -42,7 +44,7 @@ bot.on('message:text', async (context) => {
   }
 
   if (text === 'Сон') {
-    await sleepController(context);
+    await context.conversation.enter('sleepController');
   }
 });
 
