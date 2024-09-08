@@ -1,0 +1,38 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "extends": [
+    "canonical",
+    "canonical/node",
+    "canonical/typescript",
+    "canonical/typescript-type-checking",
+    "canonical/prettier"
+  ],
+  "rules": {
+    "max-len": [
+      "error",
+      {
+        "code": 85,
+        "ignoreUrls": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true,
+        "ignoreRegExpLiterals": true,
+        "ignoreComments": true
+      }
+    ],
+    "@typescript-eslint/explicit-member-accessibility": "off",
+    "canonical/filename-match-regex": "off",
+    "unicorn/expiring-todo-comments": "off",
+    "import/no-named-as-default": "off"
+  }
+}
