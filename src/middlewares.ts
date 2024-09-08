@@ -61,21 +61,3 @@ export const userMiddleware = async (
   // eslint-disable-next-line node/callback-return
   await next();
 };
-
-export const allowedUserMiddleware = async (
-  context: BotContext,
-  next: NextFunction,
-) => {
-  const { isAllowed, username } = context.state.user;
-  const isAdmin = appConfig.adminUsernames.includes(username ?? '');
-
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-  const hasAccess = isAllowed || isAdmin;
-
-  if (!hasAccess) {
-    return;
-  }
-
-  // eslint-disable-next-line node/callback-return
-  await next();
-};

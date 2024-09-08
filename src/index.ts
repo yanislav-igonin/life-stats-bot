@@ -8,18 +8,13 @@ import database from 'database';
 import { Bot, session } from 'grammy';
 import { startKeyboard } from 'keyboards';
 import { logger } from 'logger';
-import {
-  allowedUserMiddleware,
-  stateMiddleware,
-  userMiddleware,
-} from 'middlewares';
+import { stateMiddleware, userMiddleware } from 'middlewares';
 import { replies } from 'replies';
 
 const bot = new Bot<BotContext>(appConfig.botToken);
 bot.catch(logger.error);
 bot.use(stateMiddleware);
 bot.use(userMiddleware);
-bot.use(allowedUserMiddleware);
 bot.use(session({ initial: () => ({}) }));
 bot.use(conversations());
 bot.use(createConversation(sleepController));

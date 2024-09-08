@@ -36,12 +36,6 @@ export class UserModel extends BaseModel {
   language?: string;
 
   /**
-   * Is user allowed to use bot
-   */
-  @Column({ default: false })
-  isAllowed?: boolean = false;
-
-  /**
    * Messages sent by the user
    */
   @OneToMany(() => SleepModel, (sleep) => sleep.user)
