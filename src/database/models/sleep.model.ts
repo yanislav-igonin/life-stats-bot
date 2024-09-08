@@ -27,10 +27,4 @@ export class SleepModel extends BaseModel {
    */
   @Column({ enum: Object.values(SleepType), type: 'enum' })
   type!: SleepType;
-
-  /**
-   * Time of record
-   */
-  @Column({ type: 'datetime' })
-  time!: Date;
 }
