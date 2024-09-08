@@ -2,6 +2,7 @@
 import 'reflect-metadata';
 import { appConfig } from 'config/app.config';
 import { type BotContext } from 'context';
+import { sleepController } from 'controllers/sleep.controller';
 import database from 'database';
 import { Bot, Keyboard } from 'grammy';
 import { logger } from 'logger';
@@ -18,30 +19,30 @@ bot.use(stateMiddleware);
 bot.use(userMiddleware);
 bot.use(allowedUserMiddleware);
 
-const keyboard = new Keyboard();
-keyboard.add(replies.start, replies.help);
+const startKeyboard = new Keyboard();
+startKeyboard.add('Сон', 'Помощь');
 
 bot.command('start', async (context) => {
-  await context.reply(replies.start, { reply_markup: keyboard });
+  await context.reply(replies.start, { reply_markup: startKeyboard });
 });
 
-bot.command('help', async (context) => {
-  await context.reply(replies.help);
-});
+async function helpController(context: BotContext) {
+  await context.reply(replies.help, { reply_markup: startKeyboard });
+}
+
+bot.command('help', helpController);
 
 bot.on('message:text', async (context) => {
-  // const { user, chat } = context.state;
-  const text = context.message.text;
-  const { message_id: replyToMessageId } = context.message;
+  const {
+    message: { text },
+  } = context;
+  if (text === 'Помощь') {
+    await helpController(context);
+    return;
+  }
 
-  try {
-    const botMessage = `Echo: ${text}`;
-    await context.reply(botMessage, {
-      reply_to_message_id: replyToMessageId,
-    });
-  } catch (error) {
-    await context.reply(replies.error);
-    throw error;
+  if (text === 'Сон') {
+    await sleepController(context);
   }
 });
 
