@@ -1,6 +1,6 @@
 import { BaseModel } from './base.model';
 // eslint-disable-next-line import/no-cycle
-import { MessageModel } from './message.model';
+import { SleepModel } from './sleep.model';
 import { Column, Entity, OneToMany } from 'typeorm';
 
 @Entity({ name: 'users' })
@@ -44,6 +44,6 @@ export class UserModel extends BaseModel {
   /**
    * Messages sent by the user
    */
-  @OneToMany(() => MessageModel, (message) => message.user)
-  messages!: MessageModel[];
+  @OneToMany(() => SleepModel, (sleep) => sleep.user)
+  sleeps!: SleepModel[];
 }
