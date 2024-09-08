@@ -1,11 +1,14 @@
 import { type MigrationInterface, type QueryRunner } from 'typeorm';
 
-export class Initial1725804854515 implements MigrationInterface {
-  name = 'Initial1725804854515';
+export class Initial1725805217729 implements MigrationInterface {
+  name = 'Initial1725805217729';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(
-      `CREATE TABLE "sleeps" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" integer NOT NULL, "type" "public"."sleeps_type_enum" NOT NULL, CONSTRAINT "PK_c1ebe5a0cb506e527ea1677838d" PRIMARY KEY ("id"))`,
+      `CREATE TYPE "public"."sleepsTypeEnum" AS ENUM('go_to_bed', 'wake_up')`,
+    );
+    await queryRunner.query(
+      `CREATE TABLE "sleeps" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "userId" integer NOT NULL, "type" "public"."sleepsTypeEnum" NOT NULL, CONSTRAINT "PK_c1ebe5a0cb506e527ea1677838d" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE TABLE "users" ("id" SERIAL NOT NULL, "createdAt" TIMESTAMP NOT NULL DEFAULT now(), "updatedAt" TIMESTAMP NOT NULL DEFAULT now(), "tgId" character varying NOT NULL, "username" character varying, "firstName" character varying, "lastName" character varying, "language" character varying, "isAllowed" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))`,
@@ -21,5 +24,6 @@ export class Initial1725804854515 implements MigrationInterface {
     );
     await queryRunner.query(`DROP TABLE "users"`);
     await queryRunner.query(`DROP TABLE "sleeps"`);
+    await queryRunner.query(`DROP TYPE "public"."sleepsTypeEnum"`);
   }
 }

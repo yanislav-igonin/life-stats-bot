@@ -25,6 +25,10 @@ export class SleepModel extends BaseModel {
   /**
    * Type - wake up or go to bed
    */
-  @Column({ enum: Object.values(SleepType), type: 'enum' })
+  @Column({
+    enum: Object.values(SleepType),
+    enumName: 'sleepsTypeEnum',
+    type: 'enum',
+  })
   type!: SleepType;
 }
