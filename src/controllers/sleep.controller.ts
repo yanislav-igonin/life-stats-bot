@@ -25,7 +25,7 @@ export async function sleepController(
   const sleep = new SleepModel();
   sleep.user = context.state.user;
   sleep.type = type;
-  await sleep.save();
+  await conversation.external(async () => await sleep.save());
 
   await context.reply(replies.recordCreated, {
     reply_markup: startKeyboard,
