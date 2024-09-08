@@ -3,9 +3,10 @@ import { BaseModel } from './base.model';
 import { UserModel } from './user.model';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
-export enum SleepType {
-  GoToBed = 'go_to_bed',
-  WakeUp = 'wake_up',
+export enum SleepQuality {
+  '😡' = 'bad',
+  '🤨' = 'meh',
+  '🥹' = 'good',
 }
 
 @Entity({ name: 'sleeps' })
@@ -23,12 +24,25 @@ export class SleepModel extends BaseModel {
   user!: UserModel;
 
   /**
-   * Type - wake up or go to bed
+   * Wake up time
+   */
+  @Column({ nullable: true, type: 'timestamp' })
+  wakeUpAt?: Date;
+
+  /**
+   * Go to bed time
+   */
+  @Column({ nullable: true, type: 'timestamp' })
+  goToBedAt?: Date;
+
+  /**
+   * Quality of sleep
    */
   @Column({
-    enum: Object.values(SleepType),
-    enumName: 'sleepsTypeEnum',
+    enum: Object.values(SleepQuality),
+    enumName: 'sleepsQualityEnum',
+    nullable: true,
     type: 'enum',
   })
-  type!: SleepType;
+  quality?: SleepQuality;
 }
