@@ -1,9 +1,7 @@
 import { appConfig } from 'config/app.config';
 import { type BotContext } from 'context';
-import { ChatModel, UserModel } from 'database/models';
+import { UserModel } from 'database/models';
 import { type NextFunction } from 'grammy';
-// eslint-disable-next-line import/extensions
-import { type Chat as TelegramChat } from 'grammy/out/types.node';
 
 export const stateMiddleware = async (
   context: BotContext,
@@ -11,46 +9,6 @@ export const stateMiddleware = async (
 ) => {
   // @ts-expect-error Property user   is missing in type {} but required in type
   context.state = {};
-  // eslint-disable-next-line node/callback-return
-  await next();
-};
-
-export const chatMiddleware = async (
-  context: BotContext,
-  next: NextFunction,
-) => {
-  const chatId = context.chat?.id;
-  if (!chatId) {
-    // eslint-disable-next-line node/callback-return
-    await next();
-    return;
-  }
-
-  const name = (context.chat as TelegramChat.GroupChat).title ?? 'user';
-
-  const chat = await ChatModel.findOneBy({ tgId: chatId.toString() });
-  if (chat) {
-    // Update chat info
-    chat.name = name;
-    await chat.save();
-
-    // eslint-disable-next-line require-atomic-updates
-    context.state.chat = chat;
-
-    // eslint-disable-next-line node/callback-return
-    await next();
-    return;
-  }
-
-  const toCreate = {
-    name,
-    tgId: chatId.toString(),
-    type: context.chat.type,
-  };
-  const newChat = await ChatModel.create(toCreate).save();
-  // eslint-disable-next-line require-atomic-updates
-  context.state.chat = newChat;
-
   // eslint-disable-next-line node/callback-return
   await next();
 };
