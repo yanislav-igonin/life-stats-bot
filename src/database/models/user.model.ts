@@ -14,26 +14,32 @@ export class UserModel extends BaseModel {
   /**
    * Telegram username
    */
-  @Column({ nullable: true, type: 'varchar' })
+  @Column({ nullable: true })
   username?: string;
 
   /**
    * Telegram first name
    */
-  @Column({ nullable: true, type: 'varchar' })
+  @Column({ nullable: true })
   firstName?: string;
 
   /**
    * Telegram last name
    */
-  @Column({ nullable: true, type: 'varchar' })
+  @Column({ nullable: true })
   lastName?: string;
 
   /**
    * Telegram language code
    */
-  @Column({ nullable: true, type: 'varchar' })
+  @Column({ nullable: true })
   language?: string;
+
+  /**
+   * User UI access token
+   */
+  @Column({ nullable: true })
+  token?: string;
 
   /**
    * Messages sent by the user
