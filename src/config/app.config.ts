@@ -6,6 +6,7 @@ export const appConfig = {
   botToken: valueOrDefault(process.env.BOT_TOKEN, ''),
   env: valueOrDefault(process.env.ENV, 'development'),
   port: Number.parseInt(valueOrDefault(process.env.PORT, '3000'), 10),
+  uiUrl: valueOrDefault(process.env.UI_URL, 'http://localhost:3000'),
 };
 /* eslint-enable node/no-process-env */
 

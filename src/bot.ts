@@ -4,6 +4,7 @@ import { conversations, createConversation } from '@grammyjs/conversations';
 import { appConfig } from 'config/app.config';
 import { type BotContext } from 'context';
 import { sleepController } from 'controllers/sleep.controller';
+import { statsController } from 'controllers/stats.controller';
 import { Bot, session } from 'grammy';
 import { startKeyboard } from 'keyboards';
 import { logger } from 'logger';
@@ -39,6 +40,10 @@ bot.on('message:text', async (context) => {
 
   if (text === 'Сон') {
     await context.conversation.enter('sleepController');
+  }
+
+  if (text === 'Статистика') {
+    await statsController(context);
   }
 });
 
