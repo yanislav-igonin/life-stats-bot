@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@grammyjs/conversations": "^1.2.0",
+    "@hono/node-server": "^1.12.2",
     "grammy": "^1.30.0",
     "hono": "^4.5.11",
     "luxon": "^3.5.0",
