@@ -6,7 +6,6 @@ const databasePath = isProduction() ? 'dist/database' : 'src/database';
 export default new DataSource({
   entities: [`${databasePath}/models/*.model.*`],
   migrations: [`${databasePath}/migrations/*.*`],
-  synchronize: true,
   type: 'postgres',
   ...databaseConfig,
 });

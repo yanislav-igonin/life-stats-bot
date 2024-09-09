@@ -34,6 +34,7 @@
     "canonical/filename-match-regex": "off",
     "unicorn/expiring-todo-comments": "off",
     "import/no-named-as-default": "off",
-    "func-style": "off"
+    "func-style": "off",
+    "consistent-return": "off"
   }
 }
