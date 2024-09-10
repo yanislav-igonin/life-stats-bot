@@ -13,6 +13,16 @@ export enum SleepQuality {
   '🥹' = 'very_good',
 }
 
+export enum MoodOfDay {
+  '😡' = 'very_bad',
+  // eslint-disable-next-line typescript-sort-keys/string-enum
+  '😠' = 'bad',
+  '🤨' = 'meh',
+  // eslint-disable-next-line typescript-sort-keys/string-enum
+  '😌' = 'good',
+  '🥹' = 'very_good',
+}
+
 @Entity({ name: 'sleeps' })
 export class SleepModel extends BaseModel {
   /**
@@ -40,7 +50,7 @@ export class SleepModel extends BaseModel {
   goToBedAt?: Date;
 
   /**
-   * Quality of sleep
+   * Quality of sleep, asked on wake up
    */
   @Column({
     enum: Object.values(SleepQuality),
@@ -49,4 +59,15 @@ export class SleepModel extends BaseModel {
     type: 'enum',
   })
   quality?: SleepQuality;
+
+  /**
+   * Mood of day, asked before sleep
+   */
+  @Column({
+    enum: Object.values(MoodOfDay),
+    enumName: 'moodOfDayEnum',
+    nullable: true,
+    type: 'enum',
+  })
+  moodOfDay?: MoodOfDay;
 }

@@ -1,7 +1,8 @@
 import { type Conversation } from '@grammyjs/conversations';
-import { SleepModel, SleepQuality } from 'database/models';
+import { MoodOfDay, SleepModel, SleepQuality } from 'database/models';
 import { type BotContext } from 'lib/context';
 import {
+  moodOfDayKeyboard,
   sleepKeyboard,
   sleepQualityKeyboard,
   startKeyboard,
@@ -60,6 +61,13 @@ export async function sleepController(
 
   if (type === SleepType.GoToBed) {
     sleep.goToBedAt = DateTime.now().toJSDate();
+    await context.reply('Настроение за день?', {
+      reply_markup: moodOfDayKeyboard,
+      reply_to_message_id: response.message.message_id,
+    });
+    response = await conversation.waitFor('message:text');
+    sleep.moodOfDay =
+      MoodOfDay[response.message.text as keyof typeof MoodOfDay];
   }
 
   if (type === SleepType.WakeUp) {
@@ -69,7 +77,6 @@ export async function sleepController(
       reply_to_message_id: response.message.message_id,
     });
     response = await conversation.waitFor('message:text');
-    // eslint-disable-next-line require-atomic-updates
     sleep.quality =
       SleepQuality[response.message.text as keyof typeof SleepQuality];
   }

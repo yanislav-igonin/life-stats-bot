@@ -35,6 +35,8 @@
     "unicorn/expiring-todo-comments": "off",
     "import/no-named-as-default": "off",
     "func-style": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "require-atomic-updates": "off",
+    "node/callback-return": "off"
   }
 }
