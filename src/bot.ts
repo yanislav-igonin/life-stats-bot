@@ -12,7 +12,14 @@ import { stateMiddleware, userMiddleware } from 'lib/middlewares';
 import { replies } from 'lib/replies';
 
 const bot = new Bot<BotContext>(appConfig.botToken);
-bot.catch(logger.error);
+bot.catch(async (error) => {
+  logger.error(error);
+  await error.ctx.reply(error.message.replace('Error in middleware: ', ''), {
+    reply_markup: startKeyboard,
+    // @ts-expect-error Lazy to put type
+    reply_to_message_id: error.ctx.message.message_id,
+  });
+});
 bot.use(stateMiddleware);
 bot.use(userMiddleware);
 bot.use(session({ initial: () => ({}) }));

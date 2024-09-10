@@ -16,6 +16,16 @@ enum SleepType {
   WakeUp = 'wake_up',
 }
 
+const isValidSleepQuality = (
+  quality: SleepQuality,
+): quality is SleepQuality => {
+  return quality.length === 1 && Object.values(SleepQuality).includes(quality);
+};
+
+const isValidMoodOfDay = (mood: MoodOfDay): mood is MoodOfDay => {
+  return mood.length === 1 && Object.values(MoodOfDay).includes(mood);
+};
+
 export async function sleepController(
   conversation: Conversation<BotContext>,
   context: BotContext,
@@ -66,6 +76,10 @@ export async function sleepController(
       reply_to_message_id: response.message.message_id,
     });
     response = await conversation.waitFor('message:text');
+    if (!isValidMoodOfDay(response.message.text as MoodOfDay)) {
+      throw new Error('Неверная опция настроения за день');
+    }
+
     sleep.moodOfDay =
       MoodOfDay[response.message.text as keyof typeof MoodOfDay];
   }
@@ -77,6 +91,10 @@ export async function sleepController(
       reply_to_message_id: response.message.message_id,
     });
     response = await conversation.waitFor('message:text');
+    if (!isValidSleepQuality(response.message.text as SleepQuality)) {
+      throw new Error('Неверная опция качества сна');
+    }
+
     sleep.quality =
       SleepQuality[response.message.text as keyof typeof SleepQuality];
   }
