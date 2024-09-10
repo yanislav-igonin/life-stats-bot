@@ -4,9 +4,13 @@ import { UserModel } from './user.model';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 export enum SleepQuality {
-  '😡' = 'bad',
+  '😡' = 'very_bad',
+  // eslint-disable-next-line typescript-sort-keys/string-enum
+  '😠' = 'bad',
   '🤨' = 'meh',
-  '🥹' = 'good',
+  // eslint-disable-next-line typescript-sort-keys/string-enum
+  '😌' = 'good',
+  '🥹' = 'very_good',
 }
 
 @Entity({ name: 'sleeps' })
