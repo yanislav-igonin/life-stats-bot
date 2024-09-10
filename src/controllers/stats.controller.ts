@@ -10,6 +10,8 @@ export async function statsController(context: BotContext) {
   const token = crypto.randomBytes(20).toString('hex');
   user.token = token;
   await user.save();
-  const url = `${appConfig.uiUrl}?token=${token}`;
-  await context.reply(url);
+  const url = `${appConfig.uiUrl}/auth?token=${token}`;
+  await context.reply(url, {
+    entities: [{ length: url.length, offset: 0, type: 'url' }],
+  });
 }
