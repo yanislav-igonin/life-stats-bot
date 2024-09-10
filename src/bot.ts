@@ -2,14 +2,14 @@
 import 'reflect-metadata';
 import { conversations, createConversation } from '@grammyjs/conversations';
 import { appConfig } from 'config/app.config';
-import { type BotContext } from 'context';
 import { sleepController } from 'controllers/sleep.controller';
 import { statsController } from 'controllers/stats.controller';
 import { Bot, session } from 'grammy';
-import { startKeyboard } from 'keyboards';
-import { logger } from 'logger';
-import { stateMiddleware, userMiddleware } from 'middlewares';
-import { replies } from 'replies';
+import { type BotContext } from 'lib/context';
+import { startKeyboard } from 'lib/keyboards';
+import { logger } from 'lib/logger';
+import { stateMiddleware, userMiddleware } from 'lib/middlewares';
+import { replies } from 'lib/replies';
 
 const bot = new Bot<BotContext>(appConfig.botToken);
 bot.catch(logger.error);

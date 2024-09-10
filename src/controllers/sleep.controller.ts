@@ -1,9 +1,13 @@
 import { type Conversation } from '@grammyjs/conversations';
-import { type BotContext } from 'context';
 import { SleepModel, SleepQuality } from 'database/models';
-import { sleepKeyboard, sleepQualityKeyboard, startKeyboard } from 'keyboards';
+import { type BotContext } from 'lib/context';
+import {
+  sleepKeyboard,
+  sleepQualityKeyboard,
+  startKeyboard,
+} from 'lib/keyboards';
+import { replies } from 'lib/replies';
 import { DateTime } from 'luxon';
-import { replies } from 'replies';
 import { MoreThan } from 'typeorm';
 
 enum SleepType {

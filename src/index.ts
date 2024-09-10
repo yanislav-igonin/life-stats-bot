@@ -2,7 +2,7 @@ import { serve } from '@hono/node-server';
 import { bot } from 'bot';
 import { appConfig } from 'config';
 import database from 'database';
-import { logger } from 'logger';
+import { logger } from 'lib/logger';
 import { app } from 'server';
 
 const start = async () => {
