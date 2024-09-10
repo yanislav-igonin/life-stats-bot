@@ -12,3 +12,11 @@ export const sleepQualityKeyboard = new Keyboard().add(
   '😌',
   '🥹',
 );
+
+export const moodOfDayKeyboard = new Keyboard().add(
+  '😡',
+  '😠',
+  '🤨',
+  '😌',
+  '🥹',
+);

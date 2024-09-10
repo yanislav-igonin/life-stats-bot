@@ -8,7 +8,6 @@ export const stateMiddleware = async (
 ) => {
   // @ts-expect-error Property user   is missing in type {} but required in type
   context.state = {};
-  // eslint-disable-next-line node/callback-return
   await next();
 };
 
@@ -18,7 +17,6 @@ export const userMiddleware = async (
 ) => {
   const { from: user } = context;
   if (!user) {
-    // eslint-disable-next-line node/callback-return
     await next();
     return;
   }
@@ -40,9 +38,7 @@ export const userMiddleware = async (
     databaseUser.username = username;
     await databaseUser.save();
 
-    // eslint-disable-next-line require-atomic-updates
     context.state.user = databaseUser;
-    // eslint-disable-next-line node/callback-return
     await next();
     return;
   }
@@ -54,9 +50,7 @@ export const userMiddleware = async (
     tgId: userId.toString(),
     username,
   }).save();
-  // eslint-disable-next-line require-atomic-updates
   context.state.user = newUser;
 
-  // eslint-disable-next-line node/callback-return
   await next();
 };
