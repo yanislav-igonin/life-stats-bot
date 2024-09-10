@@ -1,6 +1,6 @@
-import { type BotContext } from 'context';
 import { UserModel } from 'database/models';
 import { type NextFunction } from 'grammy';
+import { type BotContext } from 'lib/context';
 
 export const stateMiddleware = async (
   context: BotContext,

@@ -1,58 +1,29 @@
-// eslint-disable-next-line import/no-unassigned-import
-import 'reflect-metadata';
-import { conversations, createConversation } from '@grammyjs/conversations';
-import { appConfig } from 'config/app.config';
-import { type BotContext } from 'context';
-import { sleepController } from 'controllers/sleep.controller';
+import { serve } from '@hono/node-server';
+import { bot } from 'bot';
+import { appConfig } from 'config';
 import database from 'database';
-import { Bot, session } from 'grammy';
-import { startKeyboard } from 'keyboards';
-import { logger } from 'logger';
-import { stateMiddleware, userMiddleware } from 'middlewares';
-import { replies } from 'replies';
-
-const bot = new Bot<BotContext>(appConfig.botToken);
-bot.catch(logger.error);
-bot.use(stateMiddleware);
-bot.use(userMiddleware);
-bot.use(session({ initial: () => ({}) }));
-bot.use(conversations());
-bot.use(createConversation(sleepController));
-
-bot.command('start', async (context) => {
-  await context.reply(replies.start, { reply_markup: startKeyboard });
-});
-
-async function helpController(context: BotContext) {
-  await context.reply(replies.help, { reply_markup: startKeyboard });
-}
-
-bot.command('help', helpController);
-
-bot.on('message:text', async (context) => {
-  const {
-    message: { text },
-  } = context;
-  if (text === 'Помощь') {
-    await helpController(context);
-    return;
-  }
-
-  if (text === 'Сон') {
-    await context.conversation.enter('sleepController');
-  }
-});
+import { logger } from 'lib/logger';
+import { app } from 'server';
 
 const start = async () => {
   await database.initialize();
-  logger.info('database connected');
-  // eslint-disable-next-line promise/prefer-await-to-then
-  bot.start().catch(async (error) => {
-    logger.error(error);
-    await database.destroy();
+  logger.info('database - online');
+  bot
+    .start({
+      onStart(botInfo) {
+        logger.info(`bot - online, id ${botInfo.id}`);
+      },
+    })
+    // eslint-disable-next-line promise/prefer-await-to-then
+    .catch(async (error) => {
+      logger.error(error);
+      await database.destroy();
+    });
+  serve({ fetch: app.fetch, port: appConfig.port }, () => {
+    logger.info(`server - online, port ${appConfig.port}`);
   });
 };
 
 start()
-  .then(() => logger.info('bot started'))
+  .then(() => logger.info('all systems nominal'))
   .catch(logger.error);
