@@ -11,6 +11,13 @@ import { replies } from 'lib/replies';
 import { DateTime } from 'luxon';
 import { MoreThan } from 'typeorm';
 
+export class UserError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'UserError';
+  }
+}
+
 enum SleepType {
   GoToBed = 'go_to_bed',
   WakeUp = 'wake_up',
@@ -19,11 +26,11 @@ enum SleepType {
 const isValidSleepQuality = (
   quality: SleepQuality,
 ): quality is SleepQuality => {
-  return quality.length === 1 && Object.values(SleepQuality).includes(quality);
+  return quality.length === 2 && Object.keys(SleepQuality).includes(quality);
 };
 
 const isValidMoodOfDay = (mood: MoodOfDay): mood is MoodOfDay => {
-  return mood.length === 1 && Object.values(MoodOfDay).includes(mood);
+  return mood.length === 2 && Object.keys(MoodOfDay).includes(mood);
 };
 
 export async function sleepController(
@@ -77,7 +84,7 @@ export async function sleepController(
     });
     response = await conversation.waitFor('message:text');
     if (!isValidMoodOfDay(response.message.text as MoodOfDay)) {
-      throw new Error('Неверная опция настроения за день');
+      throw new UserError('Неверная опция настроения за день');
     }
 
     sleep.moodOfDay =
@@ -92,7 +99,7 @@ export async function sleepController(
     });
     response = await conversation.waitFor('message:text');
     if (!isValidSleepQuality(response.message.text as SleepQuality)) {
-      throw new Error('Неверная опция качества сна');
+      throw new UserError('Неверная опция качества сна');
     }
 
     sleep.quality =

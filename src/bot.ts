@@ -13,8 +13,15 @@ import { replies } from 'lib/replies';
 
 const bot = new Bot<BotContext>(appConfig.botToken);
 bot.catch(async (error) => {
-  logger.error(error);
-  await error.ctx.reply(error.message.replace('Error in middleware: ', ''), {
+  if (!error.message.includes('UserError')) {
+    logger.error(error);
+  }
+
+  const message = error.message
+    .replace('UserError in middleware: ', '')
+    .replace('Error in middleware: ', '');
+
+  await error.ctx.reply(message, {
     reply_markup: startKeyboard,
     // @ts-expect-error Lazy to put type
     reply_to_message_id: error.ctx.message.message_id,
