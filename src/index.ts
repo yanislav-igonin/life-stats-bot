@@ -2,11 +2,35 @@ import { serve } from '@hono/node-server';
 import { bot } from 'bot';
 import { appConfig } from 'config';
 import database from 'database';
+import { MoodOfDay, SleepModel, SleepQuality } from 'database/models';
 import { logger } from 'lib/logger';
+import { DateTime } from 'luxon';
 import { app } from 'server';
+
+const seedSleeps = async () => {
+  const THREE_YEARS_DAYS = 365 * 3;
+  for (let index = 0; index < THREE_YEARS_DAYS; index += 1) {
+    const hoursInBed = Math.random() * 10;
+    const wakeUpAt = DateTime.now().minus({ days: index }).toJSDate();
+    const goToBedAt = DateTime.now()
+      .minus({ days: index, hours: hoursInBed })
+      .toJSDate();
+    const moods = Object.values(MoodOfDay);
+    const qualities = Object.values(SleepQuality);
+
+    const sleep = new SleepModel();
+    sleep.userId = 1;
+    sleep.moodOfDay = moods[Math.floor(Math.random() * moods.length)];
+    sleep.wakeUpAt = wakeUpAt;
+    sleep.goToBedAt = goToBedAt;
+    sleep.quality = qualities[Math.floor(Math.random() * qualities.length)];
+    await sleep.save();
+  }
+};
 
 const start = async () => {
   await database.initialize();
+  // await seedSleeps();
   logger.info('database - online');
   bot
     .start({
