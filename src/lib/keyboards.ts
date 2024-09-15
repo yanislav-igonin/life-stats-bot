@@ -1,7 +1,9 @@
 import { Keyboard } from 'grammy';
 
-export const startKeyboard = new Keyboard().add('Сон', 'Помощь').row();
-// .add('Статистика');
+export const startKeyboard = new Keyboard()
+  .add('Сон', 'Помощь')
+  .row()
+  .add('Статистика');
 
 export const sleepKeyboard = new Keyboard().add('Подъем', 'Отход ко сну');
 
