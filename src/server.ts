@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import { And, LessThanOrEqual, MoreThanOrEqual } from "typeorm";
 
 const app = new Hono();
-app.use("*", cors());
+app.use("*", cors({ origin: ["*"] }));
 
 class SuccessResponse {
 	ok = true;
