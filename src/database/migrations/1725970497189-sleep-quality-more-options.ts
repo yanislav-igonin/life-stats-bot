@@ -1,4 +1,4 @@
-import { type MigrationInterface, type QueryRunner } from "typeorm";
+import type { MigrationInterface, QueryRunner } from "typeorm";
 
 export class SleepQualityMoreOptions1725970497189
 	implements MigrationInterface

@@ -3,7 +3,7 @@ import { appConfig } from "config/app.config";
 import { sleepController } from "controllers/sleep.controller";
 import { statsController } from "controllers/stats.controller";
 import { Bot, session } from "grammy";
-import { type BotContext } from "lib/context";
+import type { BotContext } from "lib/context";
 import { startKeyboard } from "lib/keyboards";
 import { logger } from "lib/logger";
 import { stateMiddleware, userMiddleware } from "lib/middlewares";

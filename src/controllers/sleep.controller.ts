@@ -1,6 +1,6 @@
-import { type Conversation } from "@grammyjs/conversations";
+import type { Conversation } from "@grammyjs/conversations";
 import { MoodOfDay, SleepModel, SleepQuality } from "database/models";
-import { type BotContext } from "lib/context";
+import type { BotContext } from "lib/context";
 import {
 	moodOfDayKeyboard,
 	sleepKeyboard,
