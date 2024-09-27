@@ -4,6 +4,6 @@ const error = (data: unknown) => console.error(data);
 /* eslint-enable no-console */
 
 export const logger = {
-  error,
-  info,
+	error,
+	info,
 };
