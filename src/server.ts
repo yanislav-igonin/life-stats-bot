@@ -61,6 +61,7 @@ app.get("/sleep", async (context) => {
 	}
 
 	const { from, to } = context.req.query();
+	console.log(from, to);
 
 	const sleeps = await SleepModel.find({
 		order: {
@@ -68,12 +69,8 @@ app.get("/sleep", async (context) => {
 		},
 		select: ["id", "goToBedAt", "wakeUpAt", "quality"],
 		where: {
-			goToBedAt: And(
-				MoreThanOrEqual(DateTime.now().minus({ years: 0.5 }).toJSDate()),
-				LessThanOrEqual(DateTime.now().toJSDate()),
-			),
 			userId: user.id,
-			createdAt: Between(new Date(from), new Date(to)),
+			goToBedAt: Between(new Date(from), new Date(to)),
 		},
 	});
 	return context.json(new SuccessResponse(sleeps));
