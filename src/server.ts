@@ -1,8 +1,7 @@
 import { SleepModel, UserModel } from "database/models";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { DateTime } from "luxon";
-import { And, LessThanOrEqual, MoreThanOrEqual } from "typeorm";
+import { Between } from "typeorm";
 
 const app = new Hono();
 app.use("*", cors({ origin: ["*"] }));
@@ -60,17 +59,17 @@ app.get("/sleep", async (context) => {
 		return context.json(new ErrorResponse("Unauthorized"));
 	}
 
+	const { from, to } = context.req.query();
+	console.log(from, to);
+
 	const sleeps = await SleepModel.find({
 		order: {
 			goToBedAt: "ASC",
 		},
 		select: ["id", "goToBedAt", "wakeUpAt", "quality"],
 		where: {
-			goToBedAt: And(
-				MoreThanOrEqual(DateTime.now().minus({ years: 0.5 }).toJSDate()),
-				LessThanOrEqual(DateTime.now().toJSDate()),
-			),
 			userId: user.id,
+			goToBedAt: Between(new Date(from), new Date(to)),
 		},
 	});
 	return context.json(new SuccessResponse(sleeps));
