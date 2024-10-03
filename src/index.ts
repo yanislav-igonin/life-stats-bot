@@ -5,17 +5,15 @@ import { appConfig } from "config";
 import database from "database";
 import { MoodOfDay, SleepModel, SleepQuality } from "database/models";
 import { logger } from "lib/logger";
-import { DateTime } from "luxon";
 import { app } from "server";
+import { sub, subDays } from "date-fns";
 
 const seedSleeps = async () => {
 	const THREE_YEARS_DAYS = 365 * 3;
 	for (let index = 0; index < THREE_YEARS_DAYS; index += 1) {
 		const hoursInBed = Math.random() * 10;
-		const wakeUpAt = DateTime.now().minus({ days: index }).toJSDate();
-		const goToBedAt = DateTime.now()
-			.minus({ days: index, hours: hoursInBed })
-			.toJSDate();
+		const wakeUpAt = subDays(new Date(), index);
+		const goToBedAt = sub(new Date(), { days: index, hours: hoursInBed });
 		const moods = Object.values(MoodOfDay);
 		const qualities = Object.values(SleepQuality);
 

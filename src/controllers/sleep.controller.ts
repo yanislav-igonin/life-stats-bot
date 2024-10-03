@@ -1,5 +1,6 @@
 import type { Conversation } from "@grammyjs/conversations";
 import { MoodOfDay, SleepModel, SleepQuality } from "database/models";
+import { subHours } from "date-fns";
 import type { BotContext } from "lib/context";
 import {
 	moodOfDayKeyboard,
@@ -8,7 +9,6 @@ import {
 	startKeyboard,
 } from "lib/keyboards";
 import { replies } from "lib/replies";
-import { DateTime } from "luxon";
 import { MoreThan } from "typeorm";
 
 export class UserError extends Error {
@@ -42,7 +42,7 @@ export async function sleepController(
 	let response = await conversation.waitFor("message:text");
 
 	let sleep: SleepModel | null = null;
-	const twelveHoursAgo = DateTime.now().minus({ hours: 12 }).toJSDate();
+	const twelveHoursAgo = subHours(new Date(), 12);
 	let type: SleepType | null = null;
 
 	if (response.message.text === "Подъем") {
@@ -77,7 +77,7 @@ export async function sleepController(
 	}
 
 	if (type === SleepType.GoToBed) {
-		sleep.goToBedAt = DateTime.now().toJSDate();
+		sleep.goToBedAt = new Date();
 		await context.reply("Настроение за день?", {
 			reply_markup: moodOfDayKeyboard,
 			reply_to_message_id: response.message.message_id,
@@ -92,7 +92,7 @@ export async function sleepController(
 	}
 
 	if (type === SleepType.WakeUp) {
-		sleep.wakeUpAt = DateTime.now().toJSDate();
+		sleep.wakeUpAt = new Date();
 		await context.reply("Выспался?", {
 			reply_markup: sleepQualityKeyboard,
 			reply_to_message_id: response.message.message_id,
