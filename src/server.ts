@@ -60,8 +60,6 @@ app.get("/sleep", async (context) => {
 	}
 
 	const { from, to } = context.req.query();
-	console.log(from, to);
-
 	const sleeps = await SleepModel.find({
 		order: {
 			goToBedAt: "ASC",
