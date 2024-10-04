@@ -66,7 +66,7 @@ app.get("/sleep", async (context) => {
 		order: {
 			goToBedAt: "ASC",
 		},
-		select: ["id", "goToBedAt", "wakeUpAt", "quality"],
+		select: ["id", "goToBedAt", "wakeUpAt", "quality", "moodOfDay"],
 		where: {
 			userId: user.id,
 			goToBedAt: Between(new Date(from), new Date(to)),
