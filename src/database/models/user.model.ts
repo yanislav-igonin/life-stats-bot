@@ -1,5 +1,4 @@
 import { BaseModel } from "./base.model";
-// eslint-disable-next-line import/no-cycle
 import { SleepModel } from "./sleep.model";
 import { Column, Entity, OneToMany } from "typeorm";
 

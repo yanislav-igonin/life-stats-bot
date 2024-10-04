@@ -1,24 +1,19 @@
 import { BaseModel } from "./base.model";
-// eslint-disable-next-line import/no-cycle
 import { UserModel } from "./user.model";
 import { Column, Entity, ManyToOne } from "typeorm";
 
 export enum SleepQuality {
 	"😡" = "very_bad",
-	// eslint-disable-next-line typescript-sort-keys/string-enum
 	"😠" = "bad",
 	"🤨" = "meh",
-	// eslint-disable-next-line typescript-sort-keys/string-enum
 	"😌" = "good",
 	"🥹" = "very_good",
 }
 
 export enum MoodOfDay {
 	"😡" = "very_bad",
-	// eslint-disable-next-line typescript-sort-keys/string-enum
 	"😠" = "bad",
 	"🤨" = "meh",
-	// eslint-disable-next-line typescript-sort-keys/string-enum
 	"😌" = "good",
 	"🥹" = "very_good",
 }
