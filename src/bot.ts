@@ -1,5 +1,6 @@
 import { conversations, createConversation } from "@grammyjs/conversations";
 import { appConfig } from "config/app.config";
+import { boozeController } from "controllers/booze.controller";
 import { sleepController } from "controllers/sleep.controller";
 import { statsController } from "controllers/stats.controller";
 import { Bot, session } from "grammy";
@@ -30,6 +31,7 @@ bot.use(userMiddleware);
 bot.use(session({ initial: () => ({}) }));
 bot.use(conversations());
 bot.use(createConversation(sleepController));
+bot.use(createConversation(boozeController));
 
 bot.command("start", async (context) => {
 	await context.reply(replies.start, { reply_markup: startKeyboard });
@@ -52,6 +54,10 @@ bot.on("message:text", async (context) => {
 
 	if (text === "Сон") {
 		await context.conversation.enter("sleepController");
+	}
+
+	if (text === "Бухло") {
+		await context.conversation.enter("boozeController");
 	}
 
 	if (text === "Статистика") {
