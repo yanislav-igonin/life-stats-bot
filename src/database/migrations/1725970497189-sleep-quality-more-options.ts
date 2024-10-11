@@ -1,4 +1,4 @@
-import type { MigrationInterface, QueryRunner } from "typeorm";
+import type { MigrationInterface, QueryRunner } from "npm:typeorm";
 
 export class SleepQualityMoreOptions1725970497189
 	implements MigrationInterface

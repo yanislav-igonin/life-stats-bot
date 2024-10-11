@@ -1,7 +1,7 @@
 import { SleepModel, UserModel } from "database/models";
-import { Hono } from "hono";
-import { cors } from "hono/cors";
-import { Between } from "typeorm";
+import { Hono } from "npm:hono";
+import { cors } from "npm:hono/cors";
+import { Between } from "npm:typeorm";
 
 const app = new Hono();
 app.use("*", cors({ origin: ["*"] }));

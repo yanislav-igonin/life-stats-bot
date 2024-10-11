@@ -1,5 +1,5 @@
 import { BoozeQuantity, MoodOfDay, SleepQuality } from "database/models";
-import { Keyboard } from "grammy";
+import { Keyboard } from "npm:grammy";
 
 export const startKeyboard = new Keyboard()
 	.add("Сон", "Бухло")

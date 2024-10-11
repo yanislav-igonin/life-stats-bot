@@ -1,12 +1,11 @@
 import { UserModel } from "database/models";
-import type { NextFunction } from "grammy";
+import type { NextFunction } from "npm:grammy";
 import type { BotContext } from "lib/context";
 
 export const stateMiddleware = async (
 	context: BotContext,
 	next: NextFunction,
 ) => {
-	// @ts-expect-error Property user   is missing in type {} but required in type
 	context.state = {};
 	await next();
 };

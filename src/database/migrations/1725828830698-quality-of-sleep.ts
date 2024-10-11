@@ -1,4 +1,4 @@
-import type { MigrationInterface, QueryRunner } from "typeorm";
+import type { MigrationInterface, QueryRunner } from "npm:typeorm";
 
 export class QualityOfSleep1725828830698 implements MigrationInterface {
 	name = "QualityOfSleep1725828830698";

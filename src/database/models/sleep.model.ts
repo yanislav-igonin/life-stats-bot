@@ -1,6 +1,6 @@
 import { BaseModel } from "./base.model";
 import { UserModel } from "./user.model";
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, ManyToOne } from "npm:typeorm";
 
 export enum SleepQuality {
 	"😡" = "very_bad",

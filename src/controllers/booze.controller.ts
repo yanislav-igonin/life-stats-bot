@@ -1,4 +1,4 @@
-import type { Conversation } from "@grammyjs/conversations";
+import type { Conversation } from "npm:@grammyjs/conversations";
 import { BoozeModel, BoozeQuantity } from "database/models";
 import type { BotContext } from "lib/context";
 import { quantityOfBoozeKeyboard, startKeyboard } from "lib/keyboards";

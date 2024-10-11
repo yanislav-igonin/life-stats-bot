@@ -1,4 +1,4 @@
-import type { MigrationInterface, QueryRunner } from "typeorm";
+import type { MigrationInterface, QueryRunner } from "npm:typeorm";
 
 export class MoodOfDay1725971309465 implements MigrationInterface {
 	name = "MoodOfDay1725971309465";

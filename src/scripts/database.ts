@@ -3,13 +3,13 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 import * as path from "node:path";
-import prompts from "prompts";
-import { MigrationCreateCommand } from "typeorm/commands/MigrationCreateCommand";
-import { MigrationGenerateCommand } from "typeorm/commands/MigrationGenerateCommand";
-import { MigrationRevertCommand } from "typeorm/commands/MigrationRevertCommand";
-import { MigrationRunCommand } from "typeorm/commands/MigrationRunCommand";
-import { MigrationShowCommand } from "typeorm/commands/MigrationShowCommand";
-import type * as yargs from "yargs";
+import prompts from "npm:prompts";
+import { MigrationCreateCommand } from "npm:typeorm/commands/MigrationCreateCommand";
+import { MigrationGenerateCommand } from "npm:typeorm/commands/MigrationGenerateCommand";
+import { MigrationRevertCommand } from "npm:typeorm/commands/MigrationRevertCommand";
+import { MigrationRunCommand } from "npm:typeorm/commands/MigrationRunCommand";
+import { MigrationShowCommand } from "npm:typeorm/commands/MigrationShowCommand";
+import type * as yargs from "npm:yargs";
 
 enum OPERATION {
 	CREATE = "create",
@@ -82,10 +82,9 @@ const main = async () => {
 	const ormConfigPath = path.resolve(migrationsPath, "..", "index.ts");
 
 	const command = operationsClasses[operation];
-	const pathForCommand =
-		migrationName !== undefined
-			? path.resolve(migrationsPath, migrationName)
-			: migrationsPath;
+	const pathForCommand = migrationName !== undefined
+		? path.resolve(migrationsPath, migrationName)
+		: migrationsPath;
 
 	await command.handler({
 		$0: "dumb",

@@ -4,7 +4,7 @@ import {
 	Entity,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
-} from "typeorm";
+} from "npm:typeorm";
 
 @Entity({ synchronize: false })
 export class BaseModel extends BaseEntity {

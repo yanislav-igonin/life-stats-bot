@@ -1,9 +1,9 @@
-import { conversations, createConversation } from "@grammyjs/conversations";
+import { conversations, createConversation } from "npm:@grammyjs/conversations";
 import { appConfig } from "config/app.config";
 import { boozeController } from "controllers/booze.controller";
 import { sleepController } from "controllers/sleep.controller";
 import { statsController } from "controllers/stats.controller";
-import { Bot, session } from "grammy";
+import { Bot, session } from "npm:grammy";
 import type { BotContext } from "lib/context";
 import { startKeyboard } from "lib/keyboards";
 import { logger } from "lib/logger";

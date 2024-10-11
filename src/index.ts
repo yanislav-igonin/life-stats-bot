@@ -1,12 +1,12 @@
-import "reflect-metadata";
-import { serve } from "@hono/node-server";
-import { bot } from "bot";
+import "npm:reflect-metadata";
+import { serve } from "npm:@hono/node-server";
+import { bot } from "./bot.ts";
 import { appConfig } from "config";
 import database from "database";
 import { MoodOfDay, SleepModel, SleepQuality } from "database/models";
 import { logger } from "lib/logger";
 import { app } from "server";
-import { sub, subDays } from "date-fns";
+import { sub, subDays } from "npm:date-fns";
 
 const seedSleeps = async () => {
 	const THREE_YEARS_DAYS = 365 * 3;

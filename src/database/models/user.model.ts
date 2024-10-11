@@ -1,6 +1,6 @@
 import { BaseModel } from "./base.model";
 import { SleepModel } from "./sleep.model";
-import { Column, Entity, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany } from "npm:typeorm";
 
 @Entity({ name: "users" })
 export class UserModel extends BaseModel {
