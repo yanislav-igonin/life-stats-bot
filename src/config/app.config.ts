@@ -1,4 +1,4 @@
-import { valueOrDefault } from "lib/values";
+import { valueOrDefault } from "../lib/values.ts";
 
 /* eslint-disable node/no-process-env */
 export const appConfig = {

@@ -1,6 +1,6 @@
-import { UserModel } from "database/models";
+import { UserModel } from "../database/models/index.ts";
 import type { NextFunction } from "npm:grammy";
-import type { BotContext } from "lib/context";
+import type { BotContext } from "../lib/context.ts";
 
 export const stateMiddleware = async (
 	context: BotContext,

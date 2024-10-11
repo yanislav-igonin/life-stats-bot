@@ -1,8 +1,8 @@
 import type { Conversation } from "npm:@grammyjs/conversations";
-import { BoozeModel, BoozeQuantity } from "database/models";
-import type { BotContext } from "lib/context";
-import { quantityOfBoozeKeyboard, startKeyboard } from "lib/keyboards";
-import { replies } from "lib/replies";
+import { BoozeModel, BoozeQuantity } from "../database/models/index.ts";
+import type { BotContext } from "../lib/context.ts";
+import { quantityOfBoozeKeyboard, startKeyboard } from "../lib/keyboards.ts";
+import { replies } from "../lib/replies.ts";
 
 export class UserError extends Error {
 	constructor(message: string) {

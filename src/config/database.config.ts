@@ -1,5 +1,5 @@
-// eslint-disable-next-line import/no-extraneous-dependencies, node/no-extraneous-import
 import { parse } from "npm:pg-connection-string";
+import process from "node:process";
 
 const { host, port, database, user, password } = parse(
 	// eslint-disable-next-line node/no-process-env

@@ -1,16 +1,10 @@
 {
   "tasks": {
-    "dev": "deno run --watch src/index.ts"
-  },
-  "imports": {
-    "@/*": "./src/*"
+    "dev": "deno run --allow-net --watch src/index.ts",
+    "start": "deno run --allow-net src/index.ts",
+    "db": "deno run --allow-read --allow-write --allow-net src/scripts/database.ts"
   },
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
     "experimentalDecorators": true
   }
 }

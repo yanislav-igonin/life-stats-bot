@@ -1,4 +1,4 @@
-import { SleepModel, UserModel } from "database/models";
+import { SleepModel, UserModel } from "./database/models/index.ts";
 import { Hono } from "npm:hono";
 import { cors } from "npm:hono/cors";
 import { Between } from "npm:typeorm";

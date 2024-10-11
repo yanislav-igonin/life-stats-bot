@@ -1,14 +1,14 @@
 import { conversations, createConversation } from "npm:@grammyjs/conversations";
-import { appConfig } from "config/app.config";
-import { boozeController } from "controllers/booze.controller";
-import { sleepController } from "controllers/sleep.controller";
-import { statsController } from "controllers/stats.controller";
+import { appConfig } from "./config/app.config.ts";
+import { boozeController } from "./controllers/booze.controller.ts";
+import { sleepController } from "./controllers/sleep.controller.ts";
+import { statsController } from "./controllers/stats.controller.ts";
 import { Bot, session } from "npm:grammy";
-import type { BotContext } from "lib/context";
-import { startKeyboard } from "lib/keyboards";
-import { logger } from "lib/logger";
-import { stateMiddleware, userMiddleware } from "lib/middlewares";
-import { replies } from "lib/replies";
+import type { BotContext } from "./lib/context.ts";
+import { startKeyboard } from "./lib/keyboards.ts";
+import { logger } from "./lib/logger.ts";
+import { stateMiddleware, userMiddleware } from "./lib/middlewares.ts";
+import { replies } from "./lib/replies.ts";
 
 const bot = new Bot<BotContext>(appConfig.botToken);
 bot.catch(async (error) => {

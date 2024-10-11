@@ -1,3 +1,3 @@
-export * from "./sleep.model";
-export * from "./user.model";
-export * from "./booze.model";
+export * from "./sleep.model.ts";
+export * from "./user.model.ts";
+export * from "./booze.model.ts";

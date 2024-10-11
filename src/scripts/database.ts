@@ -4,11 +4,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import * as path from "node:path";
 import prompts from "npm:prompts";
-import { MigrationCreateCommand } from "npm:typeorm/commands/MigrationCreateCommand";
-import { MigrationGenerateCommand } from "npm:typeorm/commands/MigrationGenerateCommand";
-import { MigrationRevertCommand } from "npm:typeorm/commands/MigrationRevertCommand";
-import { MigrationRunCommand } from "npm:typeorm/commands/MigrationRunCommand";
-import { MigrationShowCommand } from "npm:typeorm/commands/MigrationShowCommand";
+import { MigrationCreateCommand } from "npm:typeorm/commands/MigrationCreateCommand.d.ts";
+import { MigrationGenerateCommand } from "npm:typeorm/commands/MigrationGenerateCommand.d.ts";
+import { MigrationRevertCommand } from "npm:typeorm/commands/MigrationRevertCommand.d.ts";
+import { MigrationRunCommand } from "npm:typeorm/commands/MigrationRunCommand.d.ts";
+import { MigrationShowCommand } from "npm:typeorm/commands/MigrationShowCommand.d.ts";
 import type * as yargs from "npm:yargs";
 
 enum OPERATION {

@@ -1,2 +1,2 @@
-export * from "./app.config";
-export * from "./database.config";
+export * from "./app.config.ts";
+export * from "./database.config.ts";

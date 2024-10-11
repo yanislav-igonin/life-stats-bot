@@ -1,14 +1,18 @@
 import type { Conversation } from "npm:@grammyjs/conversations";
-import { MoodOfDay, SleepModel, SleepQuality } from "database/models";
+import {
+	MoodOfDay,
+	SleepModel,
+	SleepQuality,
+} from "../database/models/index.ts";
 import { subHours } from "npm:date-fns";
-import type { BotContext } from "lib/context";
+import type { BotContext } from "../lib/context.ts";
 import {
 	moodOfDayKeyboard,
 	sleepKeyboard,
 	sleepQualityKeyboard,
 	startKeyboard,
-} from "lib/keyboards";
-import { replies } from "lib/replies";
+} from "../lib/keyboards.ts";
+import { replies } from "../lib/replies.ts";
 import { MoreThan } from "npm:typeorm";
 
 export class UserError extends Error {

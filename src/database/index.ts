@@ -1,4 +1,4 @@
-import { databaseConfig, isProduction } from "config";
+import { databaseConfig, isProduction } from "../config/index.ts";
 import { DataSource } from "npm:typeorm";
 
 const databasePath = isProduction() ? "dist/database" : "src/database";

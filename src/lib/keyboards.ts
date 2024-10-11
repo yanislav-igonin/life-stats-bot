@@ -1,4 +1,8 @@
-import { BoozeQuantity, MoodOfDay, SleepQuality } from "database/models";
+import {
+	BoozeQuantity,
+	MoodOfDay,
+	SleepQuality,
+} from "../database/models/index.ts";
 import { Keyboard } from "npm:grammy";
 
 export const startKeyboard = new Keyboard()

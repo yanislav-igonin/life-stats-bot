@@ -1,11 +1,15 @@
 import "npm:reflect-metadata";
 import { serve } from "npm:@hono/node-server";
 import { bot } from "./bot.ts";
-import { appConfig } from "config";
-import database from "database";
-import { MoodOfDay, SleepModel, SleepQuality } from "database/models";
-import { logger } from "lib/logger";
-import { app } from "server";
+import { appConfig } from "./config/index.ts";
+import database from "./database/index.ts";
+import {
+	MoodOfDay,
+	SleepModel,
+	SleepQuality,
+} from "./database/models/index.ts";
+import { logger } from "./lib/logger.ts";
+import { app } from "./server.ts";
 import { sub, subDays } from "npm:date-fns";
 
 const seedSleeps = async () => {

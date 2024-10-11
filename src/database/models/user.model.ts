@@ -1,5 +1,5 @@
-import { BaseModel } from "./base.model";
-import { SleepModel } from "./sleep.model";
+import { BaseModel } from "./base.model.ts";
+import { SleepModel } from "./sleep.model.ts";
 import { Column, Entity, OneToMany } from "npm:typeorm";
 
 @Entity({ name: "users" })

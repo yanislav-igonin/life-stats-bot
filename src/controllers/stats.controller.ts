@@ -1,5 +1,5 @@
-import { appConfig } from "config";
-import type { BotContext } from "lib/context";
+import { appConfig } from "../config/index.ts";
+import type { BotContext } from "../lib/context.ts";
 import * as crypto from "node:crypto";
 
 export async function statsController(context: BotContext) {

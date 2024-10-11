@@ -1,5 +1,5 @@
-import { BaseModel } from "./base.model";
-import { UserModel } from "./user.model";
+import { BaseModel } from "./base.model.ts";
+import { UserModel } from "./user.model.ts";
 import { Column, Entity, ManyToOne } from "npm:typeorm";
 
 export enum BoozeQuantity {
