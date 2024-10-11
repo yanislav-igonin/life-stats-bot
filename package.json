@@ -3,14 +3,6 @@
   "description": "",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "dev": "nodemon --watch 'src/**/*.*' --exec 'ts-node -r dotenv/config -r tsconfig-paths/register src/index.ts'",
-    "lint": "eslint --ext .ts src",
-    "typecheck": "tsc --noEmit",
-    "build": "tsc && tsc-alias",
-    "start": "node dist/index.js",
-    "db": "ts-node -r dotenv/config -r tsconfig-paths/register src/scripts/database.ts"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/yanislav-igonin/tg-bot-template.git"
