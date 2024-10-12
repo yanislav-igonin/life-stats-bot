@@ -72,6 +72,25 @@ app.get("/sleep", async (context) => {
 	return context.json(new SuccessResponse(sleeps));
 });
 
+app.get("/sleep/:id", async (context) => {
+	await auth(context);
+	// @ts-expect-error - user is set in auth
+	const user: UserModel = context.get("user");
+
+	const { id } = context.req.param();
+
+	const sleep = await SleepModel.findOneBy({
+		id: Number.parseInt(id, 10),
+		userId: user.id,
+	});
+
+	if (!sleep) {
+		return context.json(new ErrorResponse("Sleep not found"));
+	}
+
+	return context.json(new SuccessResponse(sleep));
+});
+
 type SleepBody = {
 	id: number;
 	wakeUpAt: string;
