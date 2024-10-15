@@ -98,7 +98,6 @@ type SleepBody = {
 	moodOfDay: MoodOfDay;
 	quality: SleepQuality;
 };
-
 app.post("/sleep/save", async (context) => {
 	await auth(context);
 	// @ts-expect-error - user is set in auth
