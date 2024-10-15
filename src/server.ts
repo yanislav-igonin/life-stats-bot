@@ -53,7 +53,7 @@ app.get("/auth", async (context) => {
 	return context.json(new SuccessResponse(user));
 });
 
-app.get("/sleep", async (context) => {
+app.get("/sleep/list", async (context) => {
 	await auth(context);
 	// @ts-expect-error - user is set in auth
 	const user: UserModel = context.get("user");
@@ -99,7 +99,7 @@ type SleepBody = {
 	quality: SleepQuality;
 };
 
-app.post("/sleep", async (context) => {
+app.post("/sleep/save", async (context) => {
 	await auth(context);
 	// @ts-expect-error - user is set in auth
 	const user: UserModel = context.get("user");
