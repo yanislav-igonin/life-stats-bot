@@ -33,7 +33,7 @@ export async function boozeController(
 
 	await conversation.external(
 		async () =>
-			await BoozeModel.create({
+			await BoozeModel.save({
 				user: context.state.user,
 				quantity,
 			}),
