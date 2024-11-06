@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { serve } from "@hono/node-server";
-import { bot } from "bot/bot";
+import { bot } from "bot";
 import { appConfig } from "config";
 import database from "database";
 import {
