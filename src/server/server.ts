@@ -1,4 +1,4 @@
-import { SleepModel, UserModel } from "database/models";
+import { BoozeModel, SleepModel, UserModel } from "database/models";
 import type { MoodOfDay, SleepQuality } from "database/models";
 import { Hono } from "hono";
 import type { Context } from "hono";
@@ -52,6 +52,10 @@ app.get("/auth", async (context) => {
 	const user: UserModel = context.get("user");
 	return context.json(new SuccessResponse(user));
 });
+
+/**
+ * Sleep
+ */
 
 app.get("/sleep/list", async (context) => {
 	await auth(context);
@@ -123,6 +127,74 @@ app.post("/sleep/save", async (context) => {
 	await sleep.save();
 
 	return context.json(new SuccessResponse(sleep));
+});
+
+/**
+ * Booze
+ */
+
+app.get("/booze/list", async (context) => {
+	await auth(context);
+	// @ts-expect-error - user is set in auth
+	const user: UserModel = context.get("user");
+
+	const { from, to } = context.req.query();
+	const booze = await BoozeModel.find({
+		order: {
+			createdAt: "ASC",
+		},
+		select: ["id", "createdAt", "quantity"],
+		where: {
+			userId: user.id,
+			createdAt: Between(new Date(from), new Date(to)),
+		},
+	});
+	return context.json(new SuccessResponse(booze));
+});
+
+app.get("/booze/:id", async (context) => {
+	await auth(context);
+	// @ts-expect-error - user is set in auth
+	const user: UserModel = context.get("user");
+
+	const { id } = context.req.param();
+
+	const booze = await BoozeModel.findOneBy({
+		id: Number.parseInt(id, 10),
+		userId: user.id,
+	});
+
+	if (!booze) {
+		return context.json(new ErrorResponse("Booze not found"));
+	}
+
+	return context.json(new SuccessResponse(booze));
+});
+
+type BoozeBody = Pick<BoozeModel, "id" | "createdAt" | "userId" | "quantity">;
+app.post("/booze/save", async (context) => {
+	await auth(context);
+	// @ts-expect-error - user is set in auth
+	const user: UserModel = context.get("user");
+
+	const { id, createdAt, userId, quantity } =
+		await context.req.json<BoozeBody>();
+
+	const booze = await BoozeModel.findOneBy({
+		id,
+		userId: user.id,
+	});
+
+	if (!booze) {
+		return context.json(new ErrorResponse("Sleep not found"));
+	}
+
+	booze.createdAt = new Date(createdAt) ?? booze.createdAt;
+	booze.quantity = quantity ?? booze.quantity;
+
+	await booze.save();
+
+	return context.json(new SuccessResponse(booze));
 });
 
 export { app };
