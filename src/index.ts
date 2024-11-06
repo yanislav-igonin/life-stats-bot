@@ -3,19 +3,26 @@ import { serve } from "@hono/node-server";
 import { bot } from "bot";
 import { appConfig } from "config";
 import database from "database";
-import { MoodOfDay, SleepModel, SleepQuality } from "database/models";
+import {
+	MoodOfDay,
+	SleepModel,
+	SleepQuality,
+	BoozeQuantity,
+	BoozeModel,
+} from "database/models";
 import { logger } from "lib/logger";
 import { app } from "server";
 import { sub, subDays } from "date-fns";
 
 const seedSleeps = async () => {
 	const THREE_YEARS_DAYS = 365 * 3;
+	const moods = Object.values(MoodOfDay);
+	const qualities = Object.values(SleepQuality);
+
 	for (let index = 0; index < THREE_YEARS_DAYS; index += 1) {
 		const hoursInBed = Math.random() * 10;
 		const wakeUpAt = subDays(new Date(), index);
 		const goToBedAt = sub(new Date(), { days: index, hours: hoursInBed });
-		const moods = Object.values(MoodOfDay);
-		const qualities = Object.values(SleepQuality);
 
 		const sleep = new SleepModel();
 		sleep.userId = 1;
@@ -27,9 +34,30 @@ const seedSleeps = async () => {
 	}
 };
 
+const seedBoozes = async () => {
+	const THREE_YEARS_DAYS = 365 * 3;
+	const quantities = Object.values(BoozeQuantity);
+	const today = new Date();
+	for (let index = 0; index < THREE_YEARS_DAYS; index += 1) {
+		const quantity = quantities[Math.floor(Math.random() * quantities.length)];
+		const date = subDays(today, index);
+		const shouldCreateBooze = Math.random() > 0.7;
+		if (!shouldCreateBooze) {
+			continue;
+		}
+		await BoozeModel.save({
+			userId: 1,
+			createdAt: date,
+			updatedAt: date,
+			quantity,
+		});
+	}
+};
+
 const start = async () => {
 	await database.initialize();
 	// await seedSleeps();
+	// await seedBoozes();
 	logger.info("database - online");
 	bot
 		.start({
